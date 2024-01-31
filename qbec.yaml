@@ -1,0 +1,33 @@
+apiVersion: qbec.io/v1alpha1
+kind: App
+metadata:
+  name: ntlg-k8s-mon
+spec:
+  environments:
+    prod:
+      defaultNamespace: monitoring
+      server: https://10.0.2.15:16443
+  vars:
+    computed:
+      - name: helmValues
+        code: |
+          local p = import './params.libsonnet';
+          local params = p.components.monitoring;
+
+          {
+            command: 'helm',
+            args: ['install', '--repo', params.repo, std.extVar('qbec.io/env'), params.chart_name, '--namespace', std.extVar('qbec.io/defaultNs')],
+            env: {
+              KUBECONFIG: params.kube_config
+            },
+            stdin: '### Great! ###',
+          }
+        # code: |
+        #    {
+        #     command: './commands.sh',
+        #     args: [std.extVar('qbec.io/env'), std.extVar('qbec.io/defaultNs')],
+        #     env: {},
+        #     stdin: '',
+        #    } 
+  dataSources:
+    - exec://helmInstall?configVar=helmValues
