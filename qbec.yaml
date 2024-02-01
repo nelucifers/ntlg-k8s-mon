@@ -13,21 +13,15 @@ spec:
         code: |
           local p = import './params.libsonnet';
           local params = p.components.monitoring;
-
+          local ns = std.extVar('qbec.io/defaultNs');
+          local env = std.extVar('qbec.io/env');
           {
-            command: 'helm',
-            args: ['install', '--repo', params.repo, std.extVar('qbec.io/env'), params.chart_name, '--namespace', std.extVar('qbec.io/defaultNs')],
+            command: "hello.sh",
+            args: [ "install", "--repo", params.repo, env, params.chart_name, "--namespace", ns, "--debug" ],
             env: {
               KUBECONFIG: params.kube_config
             },
-            stdin: '### Great! ###',
+            timeout: "300s"
           }
-        # code: |
-        #    {
-        #     command: './commands.sh',
-        #     args: [std.extVar('qbec.io/env'), std.extVar('qbec.io/defaultNs')],
-        #     env: {},
-        #     stdin: '',
-        #    } 
   dataSources:
     - exec://helmInstall?configVar=helmValues
