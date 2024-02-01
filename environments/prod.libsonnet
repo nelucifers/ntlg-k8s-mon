@@ -6,7 +6,7 @@ base {
     monitoring: {
       chart_name: 'kube-prometheus-stack',
       repo: 'https://prometheus-community.github.io/helm-charts/',
-      kube_config: '/home/user/.kube/config',
-    },
+      kube_config: '/root/.kube/config'
+    }
   }
 }

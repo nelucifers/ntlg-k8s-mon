@@ -16,12 +16,12 @@ spec:
           local ns = std.extVar('qbec.io/defaultNs');
           local env = std.extVar('qbec.io/env');
           {
-            command: "helm",
-            args: [ "install", "--repo", params.repo, env, params.chart_name, "--namespace", ns, "--debug" ],
+            command: 'helm',
+            args: [ 'install', '--repo', params.repo, env, params.chart_name, '--namespace', ns, '--create-namespace' ],
             env: {
               KUBECONFIG: params.kube_config
             },
-            timeout: "300s"
+            timeout: '300s'
           }
   dataSources:
     - exec://helmInstall?configVar=helmValues
