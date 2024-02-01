@@ -16,7 +16,7 @@ spec:
           local ns = std.extVar('qbec.io/defaultNs');
           local env = std.extVar('qbec.io/env');
           {
-            command: "hello.sh",
+            command: "helm",
             args: [ "install", "--repo", params.repo, env, params.chart_name, "--namespace", ns, "--debug" ],
             env: {
               KUBECONFIG: params.kube_config
