@@ -6,7 +6,7 @@ spec:
   environments:
     prod:
       defaultNamespace: monitoring
-      server: https://10.0.2.15:16443
+      server: https://127.0.0.1:6443
   vars:
     computed:
       - name: helmValues
